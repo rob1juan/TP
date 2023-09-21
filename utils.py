@@ -1,0 +1,1 @@
+# Pour tout code auxiliaire ou fonctions utiles, comme la mémorisation des états de jeu, la gestion des temps, etc.

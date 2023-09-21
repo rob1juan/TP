@@ -1,0 +1,1 @@
+# Contient la logique de l'IA, notamment les fonctions Min-Max, α-β, les stratégies d'évaluation, etc.
