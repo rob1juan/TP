@@ -26,6 +26,42 @@ class GUI:
       print("Choix invalide. Veuillez choisir une option valide.")
 
   @staticmethod
+  def choisir_type_ia(num_ia=None):
+    options = {
+        "1": ("MinMax", "IA_MINMAX"),
+        "2": ("AlphaBeta", "IA_ALPHABETA"),
+        "3": ("NegaMax", "IA_NEGAMAX"),
+        "4": ("Random", "IA_RANDOM")
+    }
+    if num_ia is not None:
+      print(f"Veuillez choisir le type d'IA {num_ia} :")
+
+    for key, value in options.items():
+      print(f"{key}. {value[0]}")
+
+    choix = input("Entrez le numéro correspondant à votre choix : ")
+    if choix in options:
+      return options[choix][1]
+    print("Choix invalide. Veuillez choisir une option valide.")
+
+  @staticmethod
+  def choisir_strategie_ia():
+    options = {
+        "1": ("Positionnel", "IA_POSITIONNEL"),
+        "2": ("Absolu", "IA_ABSOLU"),
+        "3": ("Mobilité", "IA_MOBILITE"),
+        "4": ("Mixte", "IA_MIXTE")
+    }
+    print("Veuillez choisir la stratégie de l'IA :")
+    for key, value in options.items():
+      print(f"{key}. {value[0]}")
+
+    choix = input("Entrez le numéro correspondant à votre choix : ")
+    if choix in options:
+      return options[choix][1]
+    print("Choix invalide. Veuillez choisir une option valide.")
+
+  @staticmethod
   def saisir_mouvement():
     while True:
       try:

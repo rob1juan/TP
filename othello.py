@@ -1,4 +1,7 @@
 # Ce fichier contient l'implémentation de base du jeu comme le plateau, la logique du jeu, les mouvements valides, etc.
+import random
+
+
 class Othello:
   BLANC = 'B'
   NOIR = 'N'
@@ -6,7 +9,7 @@ class Othello:
 
   DIRECTIONS = [(0, 1), (1, 0), (0, -1), (-1, 0), (-1, -1), (-1, 1), (1, -1),
                 (1, 1)]
-
+  
   def __init__(self):
     # Initialisation du plateau de jeu
     self.plateau = [[Othello.VIDE for _ in range(8)] for _ in range(8)]
@@ -62,3 +65,7 @@ class Othello:
   def est_terminé(self):
     return not self.mouvements_valides(
         Othello.BLANC) and not self.mouvements_valides(Othello.NOIR)
+
+  def random_coup(self, couleur):
+    valides = self.mouvements_valides(couleur)
+    return random.choice(valides)
