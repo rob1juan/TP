@@ -38,11 +38,11 @@ class GUI:
 
     for key, value in options.items():
       print(f"{key}. {value[0]}")
-
-    choix = input("Entrez le numéro correspondant à votre choix : ")
-    if choix in options:
-      return options[choix][1]
-    print("Choix invalide. Veuillez choisir une option valide.")
+    while True:
+      choix = input("Entrez le numéro correspondant à votre choix : ")
+      if choix in options:
+        return options[choix][1]
+      print("Choix invalide. Veuillez choisir une option valide.")
 
   @staticmethod
   def choisir_strategie_ia():
@@ -55,11 +55,11 @@ class GUI:
     print("Veuillez choisir la stratégie de l'IA :")
     for key, value in options.items():
       print(f"{key}. {value[0]}")
-
-    choix = input("Entrez le numéro correspondant à votre choix : ")
-    if choix in options:
-      return options[choix][1]
-    print("Choix invalide. Veuillez choisir une option valide.")
+    while True:
+      choix = input("Entrez le numéro correspondant à votre choix : ")
+      if choix in options:
+        return options[choix][1]
+      print("Choix invalide. Veuillez choisir une option valide.")
 
   @staticmethod
   def saisir_mouvement():
