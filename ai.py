@@ -1,4 +1,5 @@
 # Contient les fonctions d'évaluations de l'IA
+import random
 from copy import deepcopy
 
 from othello import Othello
@@ -116,7 +117,7 @@ class IA:
 
   def meilleur_coup(self, othello: Othello, couleur, profondeur, strategie):
     best_value = float('-inf') if couleur == "B" else float('inf')
-    best_move = (0, 0)
+    best_move = None
 
     mouvements_valides = othello.mouvements_valides(couleur)
     for x, y in mouvements_valides:
@@ -135,6 +136,8 @@ class IA:
           best_value = eval_coup
           best_move = (x, y)
 
+    if (best_move is None):
+      return random.choice(mouvements_valides)
     return best_move
 
   # ALGORITHME ALPHA - BETA
@@ -177,7 +180,7 @@ class IA:
   def meilleur_coup_alpha_beta(self, othello: Othello, couleur, profondeur,
                                strategie):
     best_value = float('-inf') if couleur == "B" else float('inf')
-    best_move = (0, 0)
+    best_move = None
 
     alpha = float('-inf')
     beta = float('inf')
@@ -200,7 +203,8 @@ class IA:
           best_value = eval_coup
           best_move = (x, y)
         beta = min(beta, best_value)
-
+    if (best_move is None):
+      return random.choice(mouvements_valides)
     return best_move
 
   # ALGORITHME NEGAMAX
@@ -223,7 +227,7 @@ class IA:
 
   def meilleur_coup_negamax(self, jeu, couleur, profondeur, strategie):
     best_value = float('-inf')
-    best_move = (0, 0)
+    best_move = None
 
     for move in jeu.mouvements_valides(couleur):
       x, y = move
@@ -233,5 +237,6 @@ class IA:
       if eval_coup > best_value:
         best_value = eval_coup
         best_move = (x, y)
-
+    if (best_move is None):
+      return random.choice(mouvements_valides)
     return best_move

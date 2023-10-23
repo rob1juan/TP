@@ -100,3 +100,7 @@ class GUI:
     for x, y in mouvements:
       plateau_avec_mouvements[x][y] = '?'
     GUI.afficher_plateau(plateau_avec_mouvements)
+
+  @staticmethod
+  def afficher_player(player):
+    print(f"Joueur {player.Couleur}: {player.Type} {player.Strategie}\n")
