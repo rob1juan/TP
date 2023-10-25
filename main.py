@@ -4,7 +4,7 @@ import random
 import time
 
 import utils
-import Historique
+from Historique import Historique
 from ai import IA
 from gui import GUI
 from othello import Othello
@@ -94,6 +94,10 @@ def main():
   partie_filename = f"partie_{date_time}.txt"
 
   while not jeu.est_terminé():
+    mouvements = jeu.mouvements_valides(joueur_actuel.Couleur)
+    if not mouvements:
+        joueur_actuel = joueur1 if joueur_actuel == joueur2 else joueur2
+        continue
     jouer_tour(jeu, joueur_actuel, ia)
     Historique.enregistrer_coup(partie_filename, joueur_actuel)
     joueur_actuel = joueur1 if joueur_actuel == joueur2 else joueur2
@@ -110,5 +114,53 @@ def main():
   GUI.afficher_player(joueur2)
 
 
+def main_stats(nb_parties):
+  types_ia = ["IA_MINMAX", "IA_ALPHABETA", "IA_NEGAMAX"]
+  strategies = ["IA_POSITIONNEL", "IA_ABSOLU", "IA_MOBILITE", "IA_MIXTE"]
+
+  for i in range(nb_parties):
+    # Sélection aléatoire du type et de la stratégie pour chaque IA
+    type_ia1 = random.choice(types_ia)
+    strategie_ia1 = random.choice(strategies)
+
+    type_ia2 = random.choice(types_ia)
+    strategie_ia2 = random.choice(strategies)
+
+    couleur_ia1 = random.choice([Othello.BLANC, Othello.NOIR])
+    couleur_ia2 = Othello.NOIR if couleur_ia1 == Othello.BLANC else Othello.BLANC
+
+    joueur1 = Player(couleur_ia1, type_ia1, strategie_ia1)
+    joueur2 = Player(couleur_ia2, type_ia2, strategie_ia2)
+
+    jeu = Othello()
+    ia = IA()
+
+    joueur_actuel = joueur1 if joueur1.Couleur == Othello.BLANC else joueur2
+
+    while not jeu.est_terminé():
+      mouvements = jeu.mouvements_valides(joueur_actuel.Couleur)
+      if not mouvements:
+        joueur_actuel = joueur1 if joueur_actuel == joueur2 else joueur2
+        continue
+      x, y = (0, 0)
+
+      if joueur_actuel.Type == "IA_MINMAX":
+          x, y = ia.meilleur_coup(jeu, joueur_actuel.Couleur, 3, joueur_actuel.Strategie)
+      elif joueur_actuel.Type == "IA_ALPHABETA":
+          x, y = ia.meilleur_coup_alpha_beta(jeu, joueur_actuel.Couleur, 3, joueur_actuel.Strategie)
+      elif joueur_actuel.Type == "IA_NEGAMAX":
+          x, y = ia.meilleur_coup_negamax(jeu, joueur_actuel.Couleur, 3, joueur_actuel.Strategie)
+
+      jeu.effectuer_mouvement(x, y, joueur_actuel.Couleur)
+      joueur_actuel = joueur1 if joueur_actuel == joueur2 else joueur2
+
+    b, n = GUI.compter_pions(jeu.plateau)
+    jblanc = joueur1 if joueur1.Couleur == Othello.BLANC else joueur2
+    jnoir = joueur1 if joueur1.Couleur == Othello.NOIR else joueur2
+    joueur_gagnant = jblanc if b > n else jnoir
+    Historique.mise_a_jour_fichier_global(joueur1, joueur2, joueur_gagnant)
+    print(f"game {i} done")
+
 if __name__ == "__main__":
-  main()
+  #main()
+  main_stats(1000)
