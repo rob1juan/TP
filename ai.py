@@ -228,8 +228,8 @@ class IA:
   def meilleur_coup_negamax(self, jeu, couleur, profondeur, strategie):
     best_value = float('-inf')
     best_move = None
-
-    for move in jeu.mouvements_valides(couleur):
+    mouvements_valides = jeu.mouvements_valides(couleur)
+    for move in mouvements_valides:
       x, y = move
       jeu_copie = deepcopy(jeu)
       jeu_copie.effectuer_mouvement(x, y, couleur)
