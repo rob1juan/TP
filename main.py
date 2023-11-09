@@ -96,8 +96,8 @@ def main():
   while not jeu.est_terminé():
     mouvements = jeu.mouvements_valides(joueur_actuel.Couleur)
     if not mouvements:
-        joueur_actuel = joueur1 if joueur_actuel == joueur2 else joueur2
-        continue
+      joueur_actuel = joueur1 if joueur_actuel == joueur2 else joueur2
+      continue
     jouer_tour(jeu, joueur_actuel, ia)
     Historique.enregistrer_coup(partie_filename, joueur_actuel)
     joueur_actuel = joueur1 if joueur_actuel == joueur2 else joueur2
@@ -145,11 +145,14 @@ def main_stats(nb_parties):
       x, y = (0, 0)
 
       if joueur_actuel.Type == "IA_MINMAX":
-          x, y = ia.meilleur_coup(jeu, joueur_actuel.Couleur, 3, joueur_actuel.Strategie)
+        x, y = ia.meilleur_coup(jeu, joueur_actuel.Couleur, 3,
+                                joueur_actuel.Strategie)
       elif joueur_actuel.Type == "IA_ALPHABETA":
-          x, y = ia.meilleur_coup_alpha_beta(jeu, joueur_actuel.Couleur, 3, joueur_actuel.Strategie)
+        x, y = ia.meilleur_coup_alpha_beta(jeu, joueur_actuel.Couleur, 3,
+                                           joueur_actuel.Strategie)
       elif joueur_actuel.Type == "IA_NEGAMAX":
-          x, y = ia.meilleur_coup_negamax(jeu, joueur_actuel.Couleur, 3, joueur_actuel.Strategie)
+        x, y = ia.meilleur_coup_negamax(jeu, joueur_actuel.Couleur, 3,
+                                        joueur_actuel.Strategie)
 
       jeu.effectuer_mouvement(x, y, joueur_actuel.Couleur)
       joueur_actuel = joueur1 if joueur_actuel == joueur2 else joueur2
@@ -161,6 +164,7 @@ def main_stats(nb_parties):
     Historique.mise_a_jour_fichier_global(joueur1, joueur2, joueur_gagnant)
     print(f"game {i} done")
 
+
 if __name__ == "__main__":
-  #main()
-  main_stats(1000)
+  main()
+  #main_stats(1000)
